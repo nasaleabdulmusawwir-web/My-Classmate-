@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Classmate — Your digital student companion</title>
+<meta name="description" content="My Classmate helps students organize schoolwork, prepare for exams, manage projects and learn with an AI study companion.">
+<style>
+:root{
+  --bg:#f7f9fc;--surface:#fff;--ink:#111827;--muted:#667085;--line:#e6eaf0;
+  --primary:#5b5ce2;--primary2:#7c3aed;--dark:#17182f;--success:#12b76a;
+  --shadow:0 18px 50px rgba(27,31,72,.10);--radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer;border:0}
+.container{width:min(1120px,92%);margin:auto}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px}
+.logo-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary2));display:grid;place-items:center;color:#fff;font-weight:900}
+.navlinks{display:flex;gap:28px;color:#596174;font-size:14px;font-weight:600}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.btn{padding:12px 18px;border-radius:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 22px rgba(91,92,226,.25)}
+.btn-light{background:#fff;border:1px solid var(--line)}
+.hero{padding:78px 0 55px;text-align:center;position:relative;overflow:hidden}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:99px;background:#eeefff;color:#4d4fc9;font-weight:700;font-size:13px}
+.hero h1{font-size:clamp(42px,7vw,76px);line-height:1.02;letter-spacing:-3px;max-width:850px;margin:22px auto 18px}
+.gradient{background:linear-gradient(90deg,#4f46e5,#9333ea);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:650px;margin:auto;color:var(--muted);font-size:18px}
+.hero-actions{display:flex;justify-content:center;gap:12px;margin-top:28px;flex-wrap:wrap}
+.trust{margin-top:25px;color:#8a93a5;font-size:13px}
+.dashboard{margin:55px auto 0;max-width:1000px;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:14px;text-align:left}
+.appbar{height:45px;display:flex;align-items:center;gap:7px;padding:0 10px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.dot{width:9px;height:9px;border-radius:50%;background:#d9dce5}
+.dashgrid{display:grid;grid-template-columns:210px 1fr;min-height:390px}
+.sidebar{border-right:1px solid var(--line);padding:16px}
+.sideitem{padding:10px 12px;border-radius:10px;color:#697386;font-size:13px;margin-bottom:5px}
+.sideitem.active{background:#eef0ff;color:#4f46e5;font-weight:700}
+.mainpanel{padding:20px}
+.welcome{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:20px}
+.welcome h3{font-size:22px}
+.muted{color:var(--muted);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff}
+.card .icon{width:38px;height:38px;border-radius:11px;background:#f0f1ff;display:grid;place-items:center;margin-bottom:12px}
+.card strong{font-size:18px;display:block}.card small{color:var(--muted)}
+.progress{height:7px;background:#edf0f4;border-radius:99px;margin-top:12px;overflow:hidden}.progress span{display:block;height:100%;width:72%;background:var(--primary);border-radius:99px}
+section{padding:85px 0}
+.section-head{text-align:center;max-width:700px;margin:0 auto 40px}
+.section-head h2{font-size:clamp(30px,4vw,46px);letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px}
+.section-head p{color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feature{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:25px;box-shadow:0 8px 30px rgba(20,25,55,.04)}
+.feature-icon{width:48px;height:48px;border-radius:14px;background:#eef0ff;display:grid;place-items:center;font-size:22px;margin-bottom:18px}
+.feature h3{margin-bottom:7px}.feature p{color:var(--muted);font-size:14px}
+.ai{background:var(--dark);color:#fff;border-radius:30px;padding:45px;display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;overflow:hidden}
+.ai p{color:#b8bbd0}.ai .btn-light{border:0;margin-top:20px}
+.chat{background:#242642;border:1px solid #3a3d5d;border-radius:20px;padding:20px}
+.message{padding:12px 14px;border-radius:14px;max-width:85%;font-size:13px;margin-bottom:12px}
+.user{background:#5b5ce2;margin-left:auto}.bot{background:#30334f;color:#e7e8f0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.step{padding:25px;background:#fff;border:1px solid var(--line);border-radius:18px}.num{font-size:13px;font-weight:800;color:#5b5ce2}.step h3{margin:7px 0}
+.cta{background:linear-gradient(135deg,#5b5ce2,#7c3aed);border-radius:28px;color:#fff;text-align:center;padding:60px 25px}.cta p{color:#e5e6ff;max-width:600px;margin:12px auto 25px}
+footer{padding:45px 0;border-top:1px solid var(--line);background:#fff}.footer{display:flex;justify-content:space-between;gap:25px}.footer p{color:var(--muted);font-size:13px}.footerlinks{display:flex;gap:22px;color:#667085;font-size:13px}
+.mobile-menu{display:none}
+@media(max-width:800px){
+ .navlinks,.nav-actions .btn-light{display:none}.mobile-menu{display:block;background:#fff;border:1px solid var(--line);padding:9px 11px;border-radius:10px}
+ .hero{padding-top:48px}.hero h1{letter-spacing:-2px}.dashgrid{grid-template-columns:1fr}.sidebar{display:none}
+ .cards,.features,.steps{grid-template-columns:1fr}.ai{grid-template-columns:1fr;padding:28px}.footer{flex-direction:column}.footerlinks{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#"><span class="logo-mark">M</span> My Classmate</a>
+      <div class="navlinks">
+        <a href="#features">Features</a><a href="#ai">AI Classmate</a><a href="#how">How it works</a><a href="#pricing">Pricing</a>
+      </div>
+      <div class="nav-actions"><a class="btn btn-light" href="#login">Log in</a><a class="btn btn-primary" href="#start">Get started</a></div>
+      <button class="mobile-menu" onclick="alert('Use the buttons below to explore My Classmate.')">☰</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="start">
+  <div class="container">
+    <span class="badge">✨ Built for students</span>
+    <h1>Your school life, <span class="gradient">made easier.</span></h1>
+    <p>My Classmate is your digital student companion for studying, projects, exams, school activities and staying organized.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#login">Start learning free →</a>
+      <a class="btn btn-light" href="#features">Explore features</a>
+    </div>
+    <div class="trust">Designed mobile-first for students.</div>
+
+    <div class="dashboard">
+      <div class="appbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="dashgrid">
+        <aside class="sidebar">
+          <div class="sideitem active">⌂ Dashboard</div><div class="sideitem">📚 My subjects</div><div class="sideitem">✓ Tasks</div><div class="sideitem">🧠 AI Classmate</div><div class="sideitem">📅 Calendar</div>
+        </aside>
+        <div class="mainpanel">
+          <div class="welcome"><div><h3>Good evening, Student 👋</h3><span class="muted">Here's what you have today.</span></div><span class="badge">3 tasks</span></div>
+          <div class="cards">
+            <div class="card"><div class="icon">📚</div><strong>5</strong><small>Subjects</small><div class="progress"><span></span></div></div>
+            <div class="card"><div class="icon">✓</div><strong>3</strong><small>Tasks due</small><div class="progress"><span style="width:48%"></span></div></div>
+            <div class="card"><div class="icon">🎯</div><strong>72%</strong><small>Study progress</small><div class="progress"><span></span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+<div class="container">
+  <div class="section-head"><h2>Everything you need to handle school better.</h2><p>One simple place for the everyday problems students face.</p></div>
+  <div class="features">
+    <article class="feature"><div class="feature-icon">📖</div><h3>Study smarter</h3><p>Break subjects into manageable study sessions and keep your revision organized.</p></article>
+    <article class="feature"><div class="feature-icon">📝</div><h3>Manage projects</h3><p>Plan school projects, track tasks and keep important deadlines in one place.</p></article>
+    <article class="feature"><div class="feature-icon">🎓</div><h3>Prepare for exams</h3><p>Build revision plans and practice consistently instead of cramming at the last minute.</p></article>
+    <article class="feature"><div class="feature-icon">📅</div><h3>Stay organized</h3><p>See what is coming up so assignments, activities and study time don't get forgotten.</p></article>
+    <article class="feature"><div class="feature-icon">🤖</div><h3>AI Classmate</h3><p>Ask questions, get concepts explained and turn difficult topics into easier study steps.</p></article>
+    <article class="feature"><div class="feature-icon">📈</div><h3>Track your progress</h3><p>See completed tasks and study progress so you know what still needs attention.</p></article>
+  </div>
+</div>
+</section>
+
+<section id="ai">
+<div class="container">
+  <div class="ai">
+    <div>
+      <span class="badge">🤖 AI Classmate</span>
+      <h2 style="font-size:40px;line-height:1.1;margin:18px 0 12px">A classmate that's available when you need help.</h2>
+      <p>Get explanations, study plans, brainstorming help and guidance while keeping the focus on learning.</p>
+      <a class="btn btn-light" href="#login">Try AI Classmate →</a>
+    </div>
+    <div class="chat">
+      <div class="message user">Explain photosynthesis in a simple way.</div>
+      <div class="message bot">Think of a plant as a tiny food factory. It uses sunlight, water and carbon dioxide to make the food it needs.</div>
+      <div class="message user">Now quiz me.</div>
+      <div class="message bot">Sure! 🌱 What gas do plants take in during photosynthesis?</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="how">
+<div class="container">
+  <div class="section-head"><h2>Simple from day one.</h2><p>No complicated setup. Start with the schoolwork that matters to you.</p></div>
+  <div class="steps">
+    <div class="step"><span class="num">01 — CREATE</span><h3>Set up your student space</h3><p class="muted">Add your subjects, tasks and upcoming deadlines.</p></div>
+    <div class="step"><span class="num">02 — ORGANIZE</span><h3>Plan your week</h3><p class="muted">Turn everything you need to do into clear, manageable actions.</p></div>
+    <div class="step"><span class="num">03 — LEARN</span><h3>Keep making progress</h3><p class="muted">Study, ask questions and track what you've completed.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="pricing">
+<div class="container">
+  <div class="section-head"><h2>Start free. Grow when you need more.</h2><p>The first version is designed around giving students useful tools without unnecessary complexity.</p></div>
+  <div class="features">
+    <article class="feature"><span class="badge">Free</span><h3 style="font-size:28px;margin-top:15px">₦0</h3><p>Core student organization tools, tasks and basic study planning.</p><a class="btn btn-primary" style="margin-top:20px" href="#login">Get started</a></article>
+    <article class="feature" style="border:2px solid #6869e8"><span class="badge">Coming soon</span><h3 style="font-size:28px;margin-top:15px">Premium</h3><p>Advanced AI features, deeper study tools and additional productivity features.</p><button class="btn btn-light" style="margin-top:20px" onclick="alert('Premium is coming soon.')">Join waitlist</button></article>
+  </div>
+</div>
+</section>
+
+<section id="login">
+<div class="container">
+  <div class="cta">
+    <h2 style="font-size:42px;line-height:1.1">Ready to meet your new classmate?</h2>
+    <p>Create your student space and start organizing your school life.</p>
+    <button class="btn btn-light" onclick="openApp()">Create my account →</button>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container footer">
+  <div><a class="logo" href="#"><span class="logo-mark">M</span> My Classmate</a><p style="margin-top:10px">Your digital student companion.</p></div>
+  <div class="footerlinks"><a href="#features">Features</a><a href="#ai">AI Classmate</a><a href="#pricing">Pricing</a><a href="#">Privacy</a></div>
+</div>
+</footer>
+
+<script>
+function openApp(){
+  alert("Welcome to My Classmate! Account creation will connect to your authentication system when the backend is added.");
+}
+</script>
+</body>
+</html>
